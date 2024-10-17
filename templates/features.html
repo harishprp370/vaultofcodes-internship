@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Features</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <section class="features-section">
+        <h1>AI Assistant Features</h1>
+        <div class="feature">
+            <h3>Answering Questions</h3>
+            <p>Ask anything, from general knowledge to specific topics. Our assistant provides accurate and detailed responses quickly.</p>
+        </div>
+        <div class="feature">
+            <h3>Summarizing Text</h3>
+            <p>Have a long document to read? Input the text and let our AI Assistant give you a concise summary with the main points highlighted.</p>
+        </div>
+        <div class="feature">
+            <h3>Creative Content Generation</h3>
+            <p>Need inspiration? Our assistant can generate stories, poems, or even brainstorming ideas based on the themes you choose.</p>
+        </div>
+        <div class="feature">
+            <h3>User Feedback Integration</h3>
+            <p>We care about quality! Provide feedback on responses, and we’ll continuously improve our AI’s performance based on your input.</p>
+        </div>
+    </section>
+    <div class="container">
+        <h1>Welcome to Your AI Assistant!</h1>
+        <form method="POST">
+            <label for="function">Choose a function:</label>
+            <select name="function" id="function" required>
+                <option value="">--Select--</option>
+                <option value="answer" {% if function == 'answer' %}selected{% endif %}>Answer Questions</option>
+                <option value="summarize" {% if function == 'summarize' %}selected{% endif %}>Summarize Text</option>
+                <option value="creative" {% if function == 'creative' %}selected{% endif %}>Generate Creative Content</option>
+            </select>
+            <br><br>
+            <label for="user_input">Enter your input:</label><br>
+            <textarea id="user_input" name="user_input" rows="4" cols="50" required>{{ user_input }}</textarea>
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if response %}
+            <div class="response-section">
+                <h2>Response:</h2>
+                <p>{{ response }}</p>
+
+                <h3>Was this response helpful?</h3>
+                <form method="POST" action="/feedback">
+                    <input type="hidden" name="user_input" value="{{ user_input }}">
+                    <input type="hidden" name="response" value="{{ response }}">
+                    <input type="hidden" name="function" value="{{ function }}">
+                    <button type="submit" name="helpful" value="yes">Yes</button>
+                    <button type="submit" name="helpful" value="no">No</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Environment variables
+env
+
+# Feedback data
+feedback.json
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS specific
+.DS_Store
+
+# Logs
+*.log
